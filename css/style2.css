@@ -21,8 +21,8 @@ p {font-weight: 200; font-size: 20px;}
 
 .name {font-family: Montserrat; font-size: 45px; text-transform: uppercase; font-weight: 900; padding: 12px; border: 4px solid #0068FF; color: #0068FF; display: inline-block; position: absolute; margin-bottom: 60px; top: 60px; left: 90px;}
 
-.container {margin: 0 auto; width: 700px; padding: 120px 12px 50px; overflow: auto;}
-article {padding: 60px;}
+.container {margin: 0 auto; width: 750px; padding: 120px 12px 50px; overflow: auto;}
+article {padding: 80px 40px;}
 /* TODO find better cross-platform characters */
 /* article::before {
   content: '\2601';
@@ -48,6 +48,6 @@ hr {border-bottom: 3px solid #0068FF;}
 .inline-list {list-style: none; margin: 0; padding: 0;}
 .inline-list li {display: inline-block;}
 
-footer .inline-list li {margin-right: 40px;}
+footer .inline-list li {margin-right: 20px;}
 footer a {border: none; color: #0068FF;}
-footer {margin: 0 auto; position: absolute; bottom: 55%; right: -255px; padding: 40px 0 0 0; width: 600px; -webkit-transform: rotate(-90deg);}
+footer {margin: 0 auto; position: absolute; bottom: 47%; right: -255px; padding: 45px 0 0 0; width: 625px; -webkit-transform: rotate(-90deg);}
