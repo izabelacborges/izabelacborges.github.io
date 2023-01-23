@@ -1,9 +1,9 @@
-baseURL = "/"
+baseURL = "https://izabelacborges.github.io/"
 languageCode = "en-us"
-theme = "hugo-winston-theme"
+theme = "winston"
 themesDir = "themes"
-title = "Hugo Winston Theme"
-paginate = 3
+title = "izabelacborges.github.io"
+paginate = 5
 pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
 pygmentsUseClasses = true
@@ -15,18 +15,18 @@ pygmentsUseClasses = true
 
 [params]
   google_analytics_id = ""
-  twitter_handle = "@zerostaticio"
+  twitter_handle = "@"
   showAuthorOnHomepage = true
   showAuthorOnPosts = false
   showPostsOnHomepage = false
   addDot = true
   addFrame = true
-  highlightColor = '#7b16ff'
+  highlightColor = '#52cb77'
   baseColor = "#ffffff"
   baseOffsetColor = "#eaeaea"
   headingColor = "#1c1b1d"
   textColor = "#4e5157"
-  dotColor = "#7b16ff"
+  dotColor = "#52cb77"
 
 # markdown config settings https://gohugo.io/getting-started/configuration-markup/#goldmark
 [markup]
