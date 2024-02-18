@@ -7,7 +7,17 @@ menu:
     weight: 4
 ---
 
-## iFood (2020 - 2022)
+## FanDuel (Feb 2024 - now)
+
+Now, successfully back working with DevOps I've landed on a wonderful team that takes care of the Casino vertical of the company. So far it has been great and I've been learning a lot!
+
+## Career Break (Nov 2022 - Dec 2023)
+
+After an accident and having a very workaholic approach to working for so long, I took a break to recover and learn more about myself. Did lots of physiotherapy, learned to walk and write again, took some time to go back and enjoy reading, invested in my creativity, and then took some time to travel and recharge.
+
+By the end of it, I realised that as much as Data Science and ML can be a fun field, I liked working with DevOps better. And so I relearned a few tools, learned some new others, and went onto a career transition period.
+
+## iFood (Jan 2020 - Oct 2022)
 
 `Data Scientist`
 
@@ -21,7 +31,7 @@ The last project was particularly challenging and rewarding as it was a complex 
 
 ---
 
-## Hekima (2018 - 2020)
+## Hekima (May 2018 - Jan 2020)
 
 `Data Scientist`
 
@@ -35,7 +45,7 @@ After completing my first year as an intern, I was offered a full-time position 
 
 ---
 
-## Base2 Tecnologia (2016 - 2018)
+## Base2 Tecnologia (May 2016 - Apr 2018)
 
 `Software Engineer Intern`
 
@@ -61,7 +71,7 @@ This experience led me to obtain the Certified Tester Foundation Level ISTQB® c
 
 ---
 
-## Belo Horizonte City Hall (2015 - 2016)
+## Belo Horizonte City Hall (Aug 2015 - May 2016)
 
 `Test Analyst Intern`
 
