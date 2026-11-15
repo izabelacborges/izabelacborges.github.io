@@ -37,3 +37,6 @@ bower_components
 
 # Ignore static old files
 *-old.*
+
+# Local Claude plans
+.claude/plans/
