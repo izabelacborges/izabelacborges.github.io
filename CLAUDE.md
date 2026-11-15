@@ -60,6 +60,7 @@ CI builds with **Hugo extended 0.170.0** and Dart Sass (see `.github/workflows/h
 - **Small commits, one concern each.** Commit messages are short and imperative, as in the existing history ("Change theme colour", "Edit first post").
 - **Don't push to `main` directly.** Pushing `main` deploys the live site. Work on a branch and open a pull request.
 - **HARD RULE: never merge a PR, in this repo or in the theme fork, and never enable auto-merge.** The user merges, after checking the change themselves. Open the PR, say what to look at, and wait.
+- **PR descriptions follow the format of PRs 10 to 12:** `**Summary**`, `**Changes**`, `**Notes**` (add `**Two-repo change**` when the theme is involved), `**Testing**`. Under Testing, say plainly what was and was not tested. End with the Claude Code attribution line.
 - **Keep PRs minimal.** One concern per PR, as small as possible; split anything that grows. Nothing goes live without a human check first, so show the result locally (screenshot or numbers) before asking for review.
 - **Never stop the local preview server until the user has seen the site.** Leave it running and give the URL; rebuild in place if the change needs a new build.
 - **Verify before claiming done.** Run `hugo --gc` and look at the result in a browser, in both day and night mode, at desktop and mobile width.
