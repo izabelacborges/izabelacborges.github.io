@@ -39,18 +39,18 @@ hugo --gc --minify      # production-style build into public/ (gitignored)
 hugo new posts/my-post.md
 ```
 
-## Versions: the one thing that bites
+## Versions
 
-CI builds with **Hugo extended 0.108.0** (see `.github/workflows/hugo.yml`). Local Hugo is usually much newer. Code and templates must work on **both**:
+CI builds with **Hugo extended 0.170.0** and Dart Sass (see `.github/workflows/hugo.yml`), the latest stable release, and local Hugo should match. Keep both on the latest stable version.
 
-- Do not use template functions or config keys newer than 0.108 without checking. If something only works locally, production will break.
-- `languageCode` in `config.toml` triggers a deprecation warning on new Hugo. Leave it; 0.108 needs it.
-- When you bump the CI Hugo version, say so explicitly and test the build.
+- When you bump the Hugo version, change it in `.github/workflows/hugo.yml`, `config.toml` (`module.hugoVersion.min`) and here, say so explicitly, and test the build.
+- Check deprecation warnings from `hugo --gc` and fix them rather than silencing them.
 - `hugo.IsServer` is used instead of the removed `.Site.IsServer`.
 
 ## Working rules
 
 - **Never edit `themes/winston/` for colours.** Colours belong in `assets/scss/style.scss` so a colour tweak is a single-repo change. Theme edits are fine when behaviour or markup must change, but they are a two-repo change: commit in the theme first, push it, then commit the updated submodule pointer here. See [docs/theme-submodule.md](docs/theme-submodule.md).
+- **HARD RULE: the theme submodule pointer must always be a commit on `master` of the theme fork.** Never commit a pointer to a theme branch (`sass-use-modules`, a feature or test branch). Branches are for local tests only. Before committing `themes/winston`, check the commit is on the fork's `master`: `git -C themes/winston branch -r --contains $(git -C themes/winston rev-parse HEAD)` must list `origin/master`. If not, open a PR in the fork and ask the user to review and merge it; commit the pointer only after that (the fork only, never the upstream `zerostaticthemes` repo).
 - **Never hardcode a colour in a template or a content file.** Use the CSS variables in `style.scss`. Hex values only appear in `style.scss`, DESIGN.md and `docs/design/`.
 - **Keep day and night in sync.** Any new colour variable needs a value in both `:root` and `:root[data-theme='dark']`.
 - **Check contrast** when changing any colour pair. Text needs at least 4.5:1 against its background in *both* modes. Accent colours that are too light for text on one background need a separate text variant (this is why links are not the same colour as the dot).
@@ -59,6 +59,10 @@ CI builds with **Hugo extended 0.108.0** (see `.github/workflows/hugo.yml`). Loc
 - **Voice:** first person, warm, direct, a little self-deprecating. No corporate filler ("leverage", "seamless", "unlock").
 - **Small commits, one concern each.** Commit messages are short and imperative, as in the existing history ("Change theme colour", "Edit first post").
 - **Don't push to `main` directly.** Pushing `main` deploys the live site. Work on a branch and open a pull request.
+- **HARD RULE: never merge a PR, in this repo or in the theme fork, and never enable auto-merge.** The user merges, after checking the change themselves. Open the PR, say what to look at, and wait.
+- **PR descriptions follow the format of PRs 10 to 12:** `**Summary**`, `**Changes**`, `**Notes**` (add `**Two-repo change**` when the theme is involved), `**Testing**`. Under Testing, say plainly what was and was not tested. End with the Claude Code attribution line.
+- **Keep PRs minimal.** One concern per PR, as small as possible; split anything that grows. Nothing goes live without a human check first, so show the result locally (screenshot or numbers) before asking for review.
+- **Never stop the local preview server until the user has seen the site.** Leave it running and give the URL; rebuild in place if the change needs a new build.
 - **Verify before claiming done.** Run `hugo --gc` and look at the result in a browser, in both day and night mode, at desktop and mobile width.
 - **Mind accessibility:** alt text on images, one `h1` per page, visible focus states, and don't rely on colour alone.
 - **Don't commit generated or old files:** `public/`, `resources/_gen/`, `*-old.*` are gitignored.
@@ -66,12 +70,12 @@ CI builds with **Hugo extended 0.108.0** (see `.github/workflows/hugo.yml`). Loc
 
 ## Dark mode
 
-Day is the default. Night values are defined but there is no switch yet. When it is built:
+Day is the default; night values live in `:root[data-theme='dark']` in `assets/scss/style.scss`. The switch is built, and lives in the theme repo:
 
-- Toggle `data-theme="dark"` on `<html>`. Nothing else should be needed for colours.
-- Persist the choice in `localStorage` and set the attribute in an inline `<head>` script before first paint, to avoid a flash of the wrong theme.
-- Respect `prefers-color-scheme` as the initial default when the visitor hasn't chosen.
-- The switch lives on its own branch and may need a small theme change (markup in `header.html`).
+- `layouts/_default/baseof.html`: inline `<head>` script, before the stylesheet. It reads `localStorage.theme` (`light` or `dark`), falls back to `prefers-color-scheme`, and sets `data-theme="dark"` on `<html>` for night only (day has no attribute). This is what avoids a flash of the wrong theme.
+- `layouts/partials/header.html` and `assets/scss/_header.scss`: the `#theme-toggle` button and its icon.
+- `assets/js/scripts.js`: toggles the attribute, saves the choice (in try/catch, so blocked storage still works for the session) and updates `aria-pressed`.
+- Colours never live in the theme: any new colour variable goes in `style.scss` for both modes.
 
 ## Adding content
 

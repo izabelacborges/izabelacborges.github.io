@@ -4,23 +4,34 @@
 
 Prefer not to touch the theme for colours. Those live in `assets/scss/style.scss` here. Touch the theme only for markup or behaviour.
 
+## Hard rule: point at `master`, never a branch
+
+The pointer committed in this repo must always be a commit on `master` of the theme fork. `.gitmodules` sets `branch = master` so `git submodule update --remote` follows it. Use theme branches only for local tests, and merge into the fork's `master` before committing the pointer. Check with:
+
+```bash
+git -C themes/winston branch -r --contains $(git -C themes/winston rev-parse HEAD)   # must list origin/master
+```
+
 ## Changing the theme
 
 1. Enter the theme and switch to its branch. A submodule normally sits on a detached HEAD, so a commit made there would belong to no branch.
    ```bash
    cd themes/winston && git switch master
    ```
-2. Make and check your changes, then commit and push the **theme first**:
+2. Make and check your changes on a branch, commit, push the branch and open a PR **in the fork**. Never merge it yourself: the owner reviews and merges to `master`.
    ```bash
-   git add -A && git commit -m "Describe the change" && git push origin master
+   git switch -c my-change
+   git add -A && git commit -m "feat(theme): describe the change" && git push -u origin my-change
+   gh pr create --repo izabelacborges/adapted-hugo-winston --base master
    ```
+   Only after the owner has merged it, point the submodule at the new `master`.
 3. Back in this repo, the pointer shows as modified. Commit it with the related changes:
    ```bash
    cd ../.. && git add themes/winston && git commit -m "Update theme submodule"
    ```
 4. Push this repo.
 
-Always push the theme before this repo. Otherwise the pointer references a theme commit that isn't on GitHub, and the deploy fails when it fetches the submodule.
+Always get the theme merged before the pointer is committed here. Otherwise the pointer references a theme commit that isn't on GitHub, and the deploy fails when it fetches the submodule.
 
 ## Pulling theme changes
 

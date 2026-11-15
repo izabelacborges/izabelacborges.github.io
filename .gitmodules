@@ -1,3 +1,4 @@
 [submodule "themes/winston"]
 	path = themes/winston
 	url = https://github.com/izabelacborges/adapted-hugo-winston
+	branch = master

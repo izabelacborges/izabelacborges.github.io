@@ -33,6 +33,7 @@ Source of truth for values is [assets/scss/style.scss](assets/scss/style.scss). 
 | Link hover glow | `--light-highlight-color` | `#F8CFD3` |
 | Heading dot | `--dot-color` | `#E3A0A0` |
 | Word highlighter | `--mark-bg` / `--mark-text` | `#F8CFD3` / `#33351F` |
+| Text on a highlight fill (pagination) | `--on-highlight-color` | `#FFFFFF` |
 
 ### Night (`:root[data-theme='dark']`)
 
@@ -48,6 +49,7 @@ Source of truth for values is [assets/scss/style.scss](assets/scss/style.scss). 
 | Link hover glow | `--light-highlight-color` | `#5A3436` |
 | Heading dot | `--dot-color` | `#E3A0A0` (same as day) |
 | Word highlighter | `--mark-bg` / `--mark-text` | `#5A3436` / `#F3EDE2` |
+| Text on a highlight fill (pagination) | `--on-highlight-color` | `#282A20` |
 
 ### Why the pairs differ between modes
 
@@ -109,6 +111,8 @@ Unchanged from the theme.
 - **Word highlighter:** use `<mark>word</mark>` in Markdown or HTML. Meant for one key word per heading, not for body text.
 - **Heading dot:** always `--dot-color`.
 - **Frame:** always `--frame-color`. Don't use it for text.
+- **Theme switch:** a button in the header, next to the menu (also on mobile). It shows the icon of the mode a click switches to: an outlined moon with stars by day (switch to night), and an outlined sun at night (switch to day). The icons are the two SVGs from SVG Repo (sun-2 and moon-stars), unchanged except that their stroke and fill use `currentColor`. They take `--nav-color`, and `--highlight-color` on hover and focus. The choice is saved in `localStorage`; with no saved choice the visitor's OS setting decides.
+- **Code blocks:** the theme's GitHub syntax colours are light-only, so at night a code block stays a light box. It is readable, but a proper night syntax palette is still to do (and its teal tokens break the no-blue-green rule).
 
 ## Accessibility
 
@@ -128,7 +132,7 @@ Measured WCAG contrast ratios against the page background (4.5:1 is the minimum 
 - A link inside a day-mode `<mark>` measures about 3.7:1. Avoid putting links inside highlighted words.
 - The light accents (`#E3A0A0` dot, `#7DB46C` frame) are decorative and are never used for text. The dot is 2.0:1 on day, which is fine for a large decorative glyph only.
 - Links are not underlined until hover. If that becomes a problem, add an underline rather than relying on colour alone.
-- Respect `prefers-reduced-motion` for any future switch animation.
+- The theme switch has no animation. Respect `prefers-reduced-motion` if one is added.
 
 ## Changing the palette
 

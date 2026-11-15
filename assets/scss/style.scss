@@ -2,7 +2,7 @@
 // in this repo and the theme submodule stays untouched.
 //
 // Day is the default. Night values apply when <html data-theme="dark"> is set,
-// which is what the future theme switch should toggle.
+// which the header toggle (theme repo: baseof.html and scripts.js) does.
 
 @use 'breakpoints' as * with (
   $breakpoints: (
@@ -40,6 +40,7 @@
   --dot-color: #e3a0a0; // heading dot
   --mark-bg: #f8cfd3; // <mark> word highlighter
   --mark-text: #33351f;
+  --on-highlight-color: #ffffff; // text on a --highlight-color fill
 }
 
 :root[data-theme='dark'] {
@@ -54,6 +55,7 @@
   --dot-color: #e3a0a0; // same blush as day
   --mark-bg: #5a3436;
   --mark-text: #f3ede2;
+  --on-highlight-color: #282a20; // white on blush is too faint
 }
 
 html, body {
@@ -90,4 +92,22 @@ mark {
   background: var(--mark-bg);
   color: var(--mark-text);
   padding: 0 0.15em;
+}
+
+// The theme hardcodes white text on highlight-coloured pagination items. That
+// is fine on day's watermelon but unreadable on night's blush, so use a variable.
+ul.pagination li {
+  &:hover,
+  &.pagination-item-current {
+    color: var(--on-highlight-color);
+    a {
+      color: var(--on-highlight-color);
+    }
+  }
+}
+
+// The social icons are black SVGs loaded as <img>, so they vanish on the night
+// background. Invert them (black becomes white) instead of keeping a second set.
+:root[data-theme='dark'] .social-icon img {
+  filter: invert(1);
 }
