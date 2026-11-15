@@ -39,13 +39,12 @@ hugo --gc --minify      # production-style build into public/ (gitignored)
 hugo new posts/my-post.md
 ```
 
-## Versions: the one thing that bites
+## Versions
 
-CI builds with **Hugo extended 0.108.0** (see `.github/workflows/hugo.yml`). Local Hugo is usually much newer. Code and templates must work on **both**:
+CI builds with **Hugo extended 0.170.0** and Dart Sass (see `.github/workflows/hugo.yml`), the latest stable release, and local Hugo should match. Keep both on the latest stable version.
 
-- Do not use template functions or config keys newer than 0.108 without checking. If something only works locally, production will break.
-- `languageCode` in `config.toml` triggers a deprecation warning on new Hugo. Leave it; 0.108 needs it.
-- When you bump the CI Hugo version, say so explicitly and test the build.
+- When you bump the Hugo version, change it in `.github/workflows/hugo.yml`, `config.toml` (`module.hugoVersion.min`) and here, say so explicitly, and test the build.
+- Check deprecation warnings from `hugo --gc` and fix them rather than silencing them.
 - `hugo.IsServer` is used instead of the removed `.Site.IsServer`.
 
 ## Working rules
