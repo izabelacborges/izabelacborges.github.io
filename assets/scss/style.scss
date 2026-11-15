@@ -1,0 +1,93 @@
+// Overrides themes/winston/assets/scss/style.scss so the colour system lives
+// in this repo and the theme submodule stays untouched.
+//
+// Day is the default. Night values apply when <html data-theme="dark"> is set,
+// which is what the future theme switch should toggle.
+
+:root {
+  --font-family-heading: 'Poppins', sans-serif;
+  --font-family-paragraph: Helvetica, sans-serif;
+  --font-family-monospace: monospace;
+
+  // Day (default)
+  --base-color: #fbf8f4;
+  --base-offset-color: #efeae0;
+  --heading-color: #33351f;
+  --text-color: #5e5c48;
+  --frame-color: #7db46c; // page border
+  --nav-color: #4f8a41; // logo and menu
+  --highlight-color: #bf3f50; // hyperlinks and other accents
+  --light-highlight-color: #f8cfd3; // link hover glow
+  --dot-color: #e3a0a0; // heading dot
+  --mark-bg: #f8cfd3; // <mark> word highlighter
+  --mark-text: #33351f;
+}
+
+:root[data-theme='dark'] {
+  --base-color: #282a20;
+  --base-offset-color: #33362b;
+  --heading-color: #f3ede2;
+  --text-color: #bdbaa3;
+  --frame-color: #7db46c; // same green as day
+  --nav-color: #9fd08e;
+  --highlight-color: #edb0b0;
+  --light-highlight-color: #5a3436;
+  --dot-color: #e3a0a0; // same blush as day
+  --mark-bg: #5a3436;
+  --mark-text: #f3ede2;
+}
+
+$breakpoints: (
+  'small': 767px,
+  'medium': 992px,
+  'large': 1200px,
+);
+
+@import 'normalize';
+@import 'breakpoints';
+@import 'header';
+@import 'footer';
+@import 'content';
+@import 'intro';
+@import 'summary';
+@import 'author';
+@import 'pagination';
+@import 'main-menu';
+@import 'main-menu-mobile';
+@import 'pygments/github';
+
+html, body {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--base-color);
+  font-family: var(--font-family-paragraph);
+  font-weight: 300;
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+  overflow-x: hidden;
+  @include breakpoint('small') {
+    padding: 50px;
+  }
+  &.frame {
+    min-height: 100vh;
+    border: 18px solid var(--frame-color);
+  }
+}
+
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header a {
+  color: var(--nav-color);
+}
+
+mark {
+  background: var(--mark-bg);
+  color: var(--mark-text);
+  padding: 0 0.15em;
+}
