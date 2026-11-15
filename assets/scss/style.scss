@@ -4,6 +4,25 @@
 // Day is the default. Night values apply when <html data-theme="dark"> is set,
 // which is what the future theme switch should toggle.
 
+@use 'breakpoints' as * with (
+  $breakpoints: (
+    'small': 767px,
+    'medium': 992px,
+    'large': 1200px,
+  )
+);
+@use 'normalize';
+@use 'header';
+@use 'footer';
+@use 'content';
+@use 'intro';
+@use 'summary';
+@use 'author';
+@use 'pagination';
+@use 'main-menu';
+@use 'main-menu-mobile';
+@use 'pygments/github';
+
 :root {
   --font-family-heading: 'Poppins', sans-serif;
   --font-family-paragraph: Helvetica, sans-serif;
@@ -36,25 +55,6 @@
   --mark-bg: #5a3436;
   --mark-text: #f3ede2;
 }
-
-$breakpoints: (
-  'small': 767px,
-  'medium': 992px,
-  'large': 1200px,
-);
-
-@import 'normalize';
-@import 'breakpoints';
-@import 'header';
-@import 'footer';
-@import 'content';
-@import 'intro';
-@import 'summary';
-@import 'author';
-@import 'pagination';
-@import 'main-menu';
-@import 'main-menu-mobile';
-@import 'pygments/github';
 
 html, body {
   box-sizing: border-box;
