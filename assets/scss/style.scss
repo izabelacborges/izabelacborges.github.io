@@ -105,3 +105,9 @@ ul.pagination li {
     }
   }
 }
+
+// The social icons are black SVGs loaded as <img>, so they vanish on the night
+// background. Invert them (black becomes white) instead of keeping a second set.
+:root[data-theme='dark'] .social-icon img {
+  filter: invert(1);
+}
