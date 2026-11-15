@@ -66,12 +66,12 @@ CI builds with **Hugo extended 0.170.0** and Dart Sass (see `.github/workflows/h
 
 ## Dark mode
 
-Day is the default. Night values are defined but there is no switch yet. When it is built:
+Day is the default; night values live in `:root[data-theme='dark']` in `assets/scss/style.scss`. The switch is built, and lives in the theme repo:
 
-- Toggle `data-theme="dark"` on `<html>`. Nothing else should be needed for colours.
-- Persist the choice in `localStorage` and set the attribute in an inline `<head>` script before first paint, to avoid a flash of the wrong theme.
-- Respect `prefers-color-scheme` as the initial default when the visitor hasn't chosen.
-- The switch lives on its own branch and may need a small theme change (markup in `header.html`).
+- `layouts/_default/baseof.html`: inline `<head>` script, before the stylesheet. It reads `localStorage.theme` (`light` or `dark`), falls back to `prefers-color-scheme`, and sets `data-theme="dark"` on `<html>` for night only (day has no attribute). This is what avoids a flash of the wrong theme.
+- `layouts/partials/header.html` and `assets/scss/_header.scss`: the `#theme-toggle` button and its icon.
+- `assets/js/scripts.js`: toggles the attribute, saves the choice (in try/catch, so blocked storage still works for the session) and updates `aria-pressed`.
+- Colours never live in the theme: any new colour variable goes in `style.scss` for both modes.
 
 ## Adding content
 
