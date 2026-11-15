@@ -51,6 +51,7 @@ CI builds with **Hugo extended 0.108.0** (see `.github/workflows/hugo.yml`). Loc
 ## Working rules
 
 - **Never edit `themes/winston/` for colours.** Colours belong in `assets/scss/style.scss` so a colour tweak is a single-repo change. Theme edits are fine when behaviour or markup must change, but they are a two-repo change: commit in the theme first, push it, then commit the updated submodule pointer here. See [docs/theme-submodule.md](docs/theme-submodule.md).
+- **HARD RULE: the theme submodule pointer must always be a commit on `master` of the theme fork.** Never commit a pointer to a theme branch (`sass-use-modules`, a feature or test branch). Branches are for local tests only. Before committing `themes/winston`, check the commit is on the fork's `master`: `git -C themes/winston branch -r --contains $(git -C themes/winston rev-parse HEAD)` must list `origin/master`. If not, merge the theme work into the fork's `master` first (the fork only, never the upstream `zerostaticthemes` repo).
 - **Never hardcode a colour in a template or a content file.** Use the CSS variables in `style.scss`. Hex values only appear in `style.scss`, DESIGN.md and `docs/design/`.
 - **Keep day and night in sync.** Any new colour variable needs a value in both `:root` and `:root[data-theme='dark']`.
 - **Check contrast** when changing any colour pair. Text needs at least 4.5:1 against its background in *both* modes. Accent colours that are too light for text on one background need a separate text variant (this is why links are not the same colour as the dot).

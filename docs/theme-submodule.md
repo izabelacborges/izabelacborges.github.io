@@ -4,6 +4,14 @@
 
 Prefer not to touch the theme for colours. Those live in `assets/scss/style.scss` here. Touch the theme only for markup or behaviour.
 
+## Hard rule: point at `master`, never a branch
+
+The pointer committed in this repo must always be a commit on `master` of the theme fork. `.gitmodules` sets `branch = master` so `git submodule update --remote` follows it. Use theme branches only for local tests, and merge into the fork's `master` before committing the pointer. Check with:
+
+```bash
+git -C themes/winston branch -r --contains $(git -C themes/winston rev-parse HEAD)   # must list origin/master
+```
+
 ## Changing the theme
 
 1. Enter the theme and switch to its branch. A submodule normally sits on a detached HEAD, so a commit made there would belong to no branch.
