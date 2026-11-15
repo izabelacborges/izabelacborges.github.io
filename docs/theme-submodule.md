@@ -18,17 +18,20 @@ git -C themes/winston branch -r --contains $(git -C themes/winston rev-parse HEA
    ```bash
    cd themes/winston && git switch master
    ```
-2. Make and check your changes, then commit and push the **theme first**:
+2. Make and check your changes on a branch, commit, push the branch and open a PR **in the fork**. Never merge it yourself: the owner reviews and merges to `master`.
    ```bash
-   git add -A && git commit -m "Describe the change" && git push origin master
+   git switch -c my-change
+   git add -A && git commit -m "feat(theme): describe the change" && git push -u origin my-change
+   gh pr create --repo izabelacborges/adapted-hugo-winston --base master
    ```
+   Only after the owner has merged it, point the submodule at the new `master`.
 3. Back in this repo, the pointer shows as modified. Commit it with the related changes:
    ```bash
    cd ../.. && git add themes/winston && git commit -m "Update theme submodule"
    ```
 4. Push this repo.
 
-Always push the theme before this repo. Otherwise the pointer references a theme commit that isn't on GitHub, and the deploy fails when it fetches the submodule.
+Always get the theme merged before the pointer is committed here. Otherwise the pointer references a theme commit that isn't on GitHub, and the deploy fails when it fetches the submodule.
 
 ## Pulling theme changes
 

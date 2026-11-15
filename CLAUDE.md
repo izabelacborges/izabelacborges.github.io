@@ -50,7 +50,7 @@ CI builds with **Hugo extended 0.170.0** and Dart Sass (see `.github/workflows/h
 ## Working rules
 
 - **Never edit `themes/winston/` for colours.** Colours belong in `assets/scss/style.scss` so a colour tweak is a single-repo change. Theme edits are fine when behaviour or markup must change, but they are a two-repo change: commit in the theme first, push it, then commit the updated submodule pointer here. See [docs/theme-submodule.md](docs/theme-submodule.md).
-- **HARD RULE: the theme submodule pointer must always be a commit on `master` of the theme fork.** Never commit a pointer to a theme branch (`sass-use-modules`, a feature or test branch). Branches are for local tests only. Before committing `themes/winston`, check the commit is on the fork's `master`: `git -C themes/winston branch -r --contains $(git -C themes/winston rev-parse HEAD)` must list `origin/master`. If not, merge the theme work into the fork's `master` first (the fork only, never the upstream `zerostaticthemes` repo).
+- **HARD RULE: the theme submodule pointer must always be a commit on `master` of the theme fork.** Never commit a pointer to a theme branch (`sass-use-modules`, a feature or test branch). Branches are for local tests only. Before committing `themes/winston`, check the commit is on the fork's `master`: `git -C themes/winston branch -r --contains $(git -C themes/winston rev-parse HEAD)` must list `origin/master`. If not, open a PR in the fork and ask the user to review and merge it; commit the pointer only after that (the fork only, never the upstream `zerostaticthemes` repo).
 - **Never hardcode a colour in a template or a content file.** Use the CSS variables in `style.scss`. Hex values only appear in `style.scss`, DESIGN.md and `docs/design/`.
 - **Keep day and night in sync.** Any new colour variable needs a value in both `:root` and `:root[data-theme='dark']`.
 - **Check contrast** when changing any colour pair. Text needs at least 4.5:1 against its background in *both* modes. Accent colours that are too light for text on one background need a separate text variant (this is why links are not the same colour as the dot).
@@ -59,6 +59,9 @@ CI builds with **Hugo extended 0.170.0** and Dart Sass (see `.github/workflows/h
 - **Voice:** first person, warm, direct, a little self-deprecating. No corporate filler ("leverage", "seamless", "unlock").
 - **Small commits, one concern each.** Commit messages are short and imperative, as in the existing history ("Change theme colour", "Edit first post").
 - **Don't push to `main` directly.** Pushing `main` deploys the live site. Work on a branch and open a pull request.
+- **HARD RULE: never merge a PR, in this repo or in the theme fork, and never enable auto-merge.** The user merges, after checking the change themselves. Open the PR, say what to look at, and wait.
+- **Keep PRs minimal.** One concern per PR, as small as possible; split anything that grows. Nothing goes live without a human check first, so show the result locally (screenshot or numbers) before asking for review.
+- **Never stop the local preview server until the user has seen the site.** Leave it running and give the URL; rebuild in place if the change needs a new build.
 - **Verify before claiming done.** Run `hugo --gc` and look at the result in a browser, in both day and night mode, at desktop and mobile width.
 - **Mind accessibility:** alt text on images, one `h1` per page, visible focus states, and don't rely on colour alone.
 - **Don't commit generated or old files:** `public/`, `resources/_gen/`, `*-old.*` are gitignored.
